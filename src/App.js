@@ -11,21 +11,6 @@ export default function App() {
     let [currMovie,setCurrMovie]=useState(null)
     let [genres,setGenreDetails] = useState(null)
     let [url,setTrailerUrl] = useState(null)
-     function getVideos(){
-      fetch(`https://api.themoviedb.org/3/movie/${currMovie.id}/videos?api_key=${apiKey}`, {
-            method: "GET"
-        })
-            .then(response => response.json())
-            .then(data => {
-                data.results.map(ele=>{
-                     if(ele.name==="Official Trailer"){
-                    setTrailerUrl(`youtube.com/watch?v=${ele.key}`)
-                  }
-                })
-                
-            }
-            )
-    }
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}`, {
             method: "GET"
@@ -47,6 +32,21 @@ export default function App() {
         )
     }, [])
     useEffect(()=>{
+      function getVideos(){
+        fetch(`https://api.themoviedb.org/3/movie/${currMovie.id}/videos?api_key=${apiKey}`, {
+              method: "GET"
+          })
+              .then(response => response.json())
+              .then(data => {
+                  data.results.forEach(ele=>{
+                       if(ele.name==="Official Trailer"){
+                      setTrailerUrl(`youtube.com/watch?v=${ele.key}`)
+                    }
+                  })
+                  
+              }
+              )
+      }  
         if(currMovie!==null){
           getVideos()
         }

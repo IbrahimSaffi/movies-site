@@ -11,7 +11,7 @@ export default function MoviesPage(props) {
         <p>{props.movie.overview}</p>
         <div className='genres' >
            {props.movie.genre_ids.map(ele=>{
-            return props.gen.genres.map(gen=>{
+            return props.gen.genres.forEach(gen=>{
               if(gen["id"]===ele){
                 return <h3>{gen["name"]}</h3>
               }
