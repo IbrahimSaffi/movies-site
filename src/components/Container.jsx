@@ -1,11 +1,6 @@
 import MovieItem from "./MovieItem"
 
-
-
-
 function Container(props) {
-    
-
     return (
         <div className="container">
             {props.itemsList.map(ele =>
